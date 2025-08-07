@@ -7,6 +7,8 @@ import com.example.CAS.Repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping
 public class AllocationController {
@@ -21,6 +23,7 @@ public class AllocationController {
     public String allocateCourse(@RequestParam String email, @RequestParam int marks) {
 
         Student student = studentRepo.findByEmail(email);
+
         if (student == null) {
             return "Student not found with email: " + email;
         }
@@ -56,4 +59,21 @@ public class AllocationController {
 
         return "Student allocated to course: " + courseName;
     }
+    @GetMapping("allocation/email/{email}")
+    public Allocation getByEmail(@PathVariable String email){
+        return allocationRepo.findByEmail(email);
+    }
+    @GetMapping("allocation/name/{name}")
+    public List<Allocation> getByName(@PathVariable String name){
+        return allocationRepo.findByName(name);
+    }
+    @GetMapping("allocation/courseName{courseName}")
+    public  List<Allocation> getByCourseName(@PathVariable String courseName){
+        return allocationRepo.findByCourseName(courseName);
+    }
+    @GetMapping("Allocation/courseId{courseId}")
+    public  List<Allocation> getByCourseId(@PathVariable int courseId){
+        return allocationRepo.findByCourse_Id(courseId);
+    }
+
 }
