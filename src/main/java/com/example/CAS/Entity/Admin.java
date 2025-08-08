@@ -7,35 +7,35 @@ public class Admin {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    private long iD;
 
     @Column(name = "AdminName",nullable = false)
-    private String AdminName;
+    private String adminName;
 
     @Column(name = "Password",nullable = false)
-    private String Password;
+    private String password;
 
     public long getID() {
-        return ID;
+        return iD;
     }
 
     public void setID(long ID) {
-        this.ID = ID;
+        this.iD = ID;
     }
 
     public String getAdminName() {
-        return AdminName;
+        return adminName;
     }
 
-    public void setAdminName(String adminName) {
-        AdminName = adminName;
+    public void setAdminName(String AdminName) {
+        adminName = AdminName;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setPassword(String Password) {
+        password = Password;
     }
 }

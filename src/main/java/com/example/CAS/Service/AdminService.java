@@ -13,7 +13,7 @@ public class AdminService {
 @Autowired
     private JWTutil jwTutil;
 
-public String Autenticate(String AdminName,String Password){
+public String autenticate(String AdminName,String Password){
     Admin admin = adminRepo.findByAdminName(AdminName)
             .orElseThrow(()-> new RuntimeException("Admin not found"));
     if(!admin.getPassword().equals(Password)){
@@ -21,5 +21,10 @@ public String Autenticate(String AdminName,String Password){
     }
     return jwTutil.GenerateToken(AdminName);
 }
+    public boolean validateAdmin(String adminName, String password) {
+        return adminRepo.findByAdminName(adminName)
+                .map(admin -> admin.getPassword().equals(password))
+                .orElse(false);
+    }
 
 }
