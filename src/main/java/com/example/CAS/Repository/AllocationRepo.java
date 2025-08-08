@@ -5,7 +5,6 @@ import java.util.List;
 public interface AllocationRepo extends JpaRepository<Allocation ,Integer> {
 
     Allocation findByEmail(String email);
-
     List<Allocation> findByCourseName(String courseName);
     List<Allocation> findByName(String name);
     List<Allocation> findByCourseId(int courseId);

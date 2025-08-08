@@ -1,6 +1,7 @@
 package com.example.CAS.Controller;
 import com.example.CAS.Entity.Student;
 import com.example.CAS.Repository.StudentRepo;
+import com.example.CAS.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,33 +10,27 @@ import java.util.List;
 @RequestMapping("/Students")
 public class StudentController {
     @Autowired
-    private StudentRepo studentRepo;
+    private StudentService studentService;
 
     @PostMapping("/add")
     public Student addStudent(@RequestBody Student student) {
-        return studentRepo.save(student);
+        return studentService.addStudent(student);
     }
 
     @GetMapping("/{email}")
     public Student getStudent(@PathVariable String email) {
-        return studentRepo.findById(email).orElse(null);
+        return studentService.getStudentByEmail(email);
     }
 
     @GetMapping("/all")
 
     public List<Student> getAllStudents() {
-        return studentRepo.findAll();
+        return studentService.getAllStudents();
     }
 
-    @DeleteMapping("/{email}")
-    public String deleteStudent(@PathVariable String email) {
-        if (studentRepo.existsById(email)) {
-            studentRepo.deleteById(email);
-            return "Deleted the Student with Email Id: " + email;
-        } else {
-            return "Student not found with Email Id: " + email;
-        }
-
-    }
+   @DeleteMapping("/{email}")
+    public String DeleteStudent(@PathVariable String email){
+        return studentService.deleteStudent(email);
+   }
 
 }
