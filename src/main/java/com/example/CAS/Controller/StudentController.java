@@ -10,26 +10,32 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentRepo studentRepo;
+
     @PostMapping("/add")
-    public Student addStudent(@RequestBody Student student){
+    public Student addStudent(@RequestBody Student student) {
         return studentRepo.save(student);
     }
+
     @GetMapping("/{email}")
-    public Student getStudent(@PathVariable String email){
+    public Student getStudent(@PathVariable String email) {
         return studentRepo.findById(email).orElse(null);
     }
+
     @GetMapping("/all")
 
-    public List<Student> getAllStudents(){
+    public List<Student> getAllStudents() {
         return studentRepo.findAll();
     }
-@DeleteMapping("/{email}")
-    public  String deleteStudent(@PathVariable String email){
-    if (studentRepo.existsById(email)) {
-        studentRepo.deleteById(email);
-        return "Deleted the Student with Email Id: " + email;
-    } else {
-        return "Student not found with Email Id: " + email;
+
+    @DeleteMapping("/{email}")
+    public String deleteStudent(@PathVariable String email) {
+        if (studentRepo.existsById(email)) {
+            studentRepo.deleteById(email);
+            return "Deleted the Student with Email Id: " + email;
+        } else {
+            return "Student not found with Email Id: " + email;
+        }
+
     }
-}
+
 }

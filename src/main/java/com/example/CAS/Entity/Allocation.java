@@ -1,31 +1,34 @@
 package com.example.CAS.Entity;
-import jakarta.persistence.*;
-import org.springframework.lang.Nullable;
 
-import javax.lang.model.element.Name;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Allocation")
 public class Allocation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id_No;
+    private int idNo;
 
     @Column(name = "Name")
     private String name;
+
     @Column(name = "Email", nullable = false)
     private String email;
-    @Column(name = "Course_id",nullable = false)
-    private int course_Id;
-    @Column(name = "Course_name")
-    private String course_Name;
 
-    public int getId_No() {
-        return Id_No;
+    @Column(name = "Course_id", nullable = false)
+    private int courseId;
+
+    @Column(name = "Course_name")
+    private String courseName;
+
+    // Getters and Setters
+    public int getIdNo() {
+        return idNo;
     }
 
-    public void setId_No(int id_No) {
-        Id_No = id_No;
+    public void setIdNo(int idNo) {
+        this.idNo = idNo;
     }
 
     public String getName() {
@@ -33,7 +36,7 @@ public class Allocation {
     }
 
     public void setName(String name) {
-      this.name = name;
+        this.name = name;
     }
 
     public String getEmail() {
@@ -44,19 +47,19 @@ public class Allocation {
         this.email = email;
     }
 
-    public int getCourse_id() {
-        return course_Id;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourse_id(int course_id) {
-        course_Id = course_id;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public String getCourse_name() {
-        return course_Name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        course_Name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }
