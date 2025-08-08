@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Allocation {
 
     @Id
+    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idNo;
 
