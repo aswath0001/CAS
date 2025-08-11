@@ -3,28 +3,37 @@ package com.example.CAS.Service;
 import com.example.CAS.Entity.Admin;
 import com.example.CAS.Repository.AdminRepo;
 import com.example.CAS.Security.JWTutil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Optional;
 @Service
-public class AdminService {
-@Autowired
-    private AdminRepo adminRepo;
-@Autowired
-    private JWTutil jwTutil;
+public class AdminService implements UserDetailsService {
 
-public String autenticate(String AdminName,String Password){
-    Admin admin = adminRepo.findByAdminName(AdminName)
-            .orElseThrow(()-> new RuntimeException("Admin not found"));
-    if(!admin.getPassword().equals(Password)){
-        throw new RuntimeException("Invalid Password");
-    }
-    return jwTutil.GenerateToken(AdminName);
-}
-    public boolean validateAdmin(String adminName, String password) {
-        return adminRepo.findByAdminName(adminName)
-                .map(admin -> admin.getPassword().equals(password))
-                .orElse(false);
+    private final AdminRepo adminRepo;
+
+    // Remove JWTutil and PasswordEncoder from here
+    public AdminService(AdminRepo adminRepo) {
+        this.adminRepo = adminRepo;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Admin admin = adminRepo.findByAdminName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Admin not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                admin.getAdminName(),
+                admin.getPassword(),
+                new ArrayList<>()
+        );
+    }
 }
