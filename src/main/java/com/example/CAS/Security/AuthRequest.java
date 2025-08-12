@@ -1,15 +1,23 @@
 package com.example.CAS.Security;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"AdminName", "password"})
 public class AuthRequest {
-    private String userName;
+
+    @JsonProperty("AdminName")
+    private String adminName;
+
     private String password;
 
-    public String getUserName() {
-        return userName;
+    // Renamed getters/setters for consistency
+    public String getAdminName() {
+        return adminName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public String getPassword() {

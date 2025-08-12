@@ -7,9 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class PasswordConfig {
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new Password(); // Use SHA-256 instead of BCrypt
     }
 }
