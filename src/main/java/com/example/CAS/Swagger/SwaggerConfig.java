@@ -14,7 +14,6 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 @Configuration
 public class SwaggerConfig {
 
@@ -22,9 +21,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Student Management API")
+                        .title("Course Allocation System")
                         .version("1.0")
-                        .description("API for managing student data with bulk upload functionality"))
+                        .description("API for managing student and course data with bulk upload functionality"))
                 .addSecurityItem(new SecurityRequirement().addList("JWT"))
                 .components(new Components()
                         .addSecuritySchemes("JWT", new SecurityScheme()
@@ -35,8 +34,9 @@ public class SwaggerConfig {
                         .addSchemas("MultipartFile", new Schema()
                                 .type("string")
                                 .format("binary")
-                                .description("Excel (.xlsx) or TXT file containing student data")))
+                                .description("Excel (.xlsx) or TXT file")))
                 .paths(new Paths()
+                        // Existing Student endpoints
                         .addPathItem("/Students/upload", new PathItem()
                                 .post(new Operation()
                                         .summary("Upload students in bulk")
@@ -54,6 +54,26 @@ public class SwaggerConfig {
                                                         .description("Students uploaded successfully"))
                                                 .addApiResponse("400", new ApiResponse()
                                                         .description("Invalid file format"))
+                                                .addApiResponse("401", new ApiResponse()
+                                                        .description("Unauthorized")))))
+
+                        .addPathItem("/Course/upload", new PathItem()
+                                .post(new Operation()
+                                        .summary("Upload courses ")
+                                        .description("Upload Excel (.xlsx) or TXT file containing course data")
+                                        .requestBody(new RequestBody()
+                                                .content(new Content()
+                                                        .addMediaType("multipart/form-data", new MediaType()
+                                                                .schema(new Schema()
+                                                                        .type("object")
+                                                                        .addProperty("file", new Schema()
+                                                                                .$ref("#/components/schemas/MultipartFile"))))))
+                                        .addTagsItem("Course Management")
+                                        .responses(new ApiResponses()
+                                                .addApiResponse("200", new ApiResponse()
+                                                        .description("Course uploaded successfully"))
+                                                .addApiResponse("400", new ApiResponse()
+                                                        .description("Invalid file format or data"))
                                                 .addApiResponse("401", new ApiResponse()
                                                         .description("Unauthorized"))))));
     }

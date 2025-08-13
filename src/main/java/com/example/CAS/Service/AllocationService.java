@@ -31,7 +31,11 @@ public class AllocationService {
         } else if (Mark >= 80) {
             courseName = "EEE";
             courseId = 4;
-        } else {
+        } else if(Mark>=75){
+            courseName = "Mech";
+            courseId =5;
+        }
+            else {
             return "No course available for mark: " + Mark;
         }
         Allocation allocation = new Allocation();

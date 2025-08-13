@@ -7,16 +7,22 @@ public class Course {
 
     @Id
     @Column(name = "Course_id")
-    private int Id;
+    private int id;
    @Column(name = "Course_name")
     private String courseName;
+public Course (){
 
+}
+public Course (int id,String courseName){
+    this.id = id;
+    this.courseName = courseName;
+}
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
     public String getCourseName() {
