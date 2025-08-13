@@ -10,7 +10,7 @@ public class Password implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return sha256(rawPassword + salt);
+        return sha256(rawPassword + salt);  
     }
 
     @Override

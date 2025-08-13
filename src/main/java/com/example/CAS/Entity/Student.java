@@ -18,9 +18,16 @@ public class Student {
 
     @Column(name = "Mark")
     private int mark;
+    public Student() {}
+public Student(String name ,String surName, String email, int mark){
+    this.name = name;
+    this.surName = surName;
+    this.email = email;
+    this.mark = mark;
+}
 
-    // Getters and setters
     public String getName(){
+
         return name;
     }
 
@@ -29,6 +36,7 @@ public class Student {
     }
 
     public String getSurName(){
+
         return surName;
     }
 
@@ -37,18 +45,18 @@ public class Student {
     }
 
     public String getEmail(){
+
         return email;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
     public int getMark(){
+
         return mark;
     }
 
-    public void setMark(int mark){
-        this.mark = mark;
-    }
+
 }
